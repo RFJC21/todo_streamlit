@@ -1,7 +1,7 @@
 import streamlit as st
 #from modules import todo_functions as f
 
-FILEPATH = 'files/todos.csv'
+FILEPATH = 'todos.xls'
 
 # function to get todos
 def get_todos(file_path=FILEPATH): #function with default argument
