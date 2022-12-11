@@ -1,8 +1,22 @@
 import streamlit as st
-from modules import todo_functions as f
+#from modules import todo_functions as f
+
+FILEPATH = 'files/todos.csv'
+
+# function to get todos
+def get_todos(file_path=FILEPATH): #function with default argument
+    with open(file_path, 'r') as file_local:
+        todos_local = file_local.readlines()
+    return todos_local
+
+
+def write_todos(todos_arg, file_path=FILEPATH): # non default parameters should come first
+    with open(file_path, 'w') as file_local:
+        file_local.writelines(todos_arg)
+
 
 # import todos
-todos = f.get_todos()
+todos = get_todos()
 
 # get and write todo
 def add_todo():
@@ -10,7 +24,7 @@ def add_todo():
     todos.append(todo)
     f.write_todos(todos)
 
-todos = f.get_todos()
+todos = get_todos()
 
 st.title('Todo app')
 
@@ -21,7 +35,7 @@ for index, todo in enumerate(todos):
     checkbox = st.checkbox(todo, key=todo)
     if checkbox == True:
         todos.pop(index)
-        f.write_todos(todos)
+        write_todos(todos)
         del st.session_state[todo]
         st.experimental_rerun()
 
